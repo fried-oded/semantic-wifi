@@ -1,0 +1,96 @@
+#all{
+    background-color: darkgray;
+    align-self: center;
+}
+
+#welcome{
+    margin-left: 38%;
+    color: darkred;
+    font-size: 30px;
+}
+
+#location {
+    align-self: center;
+    margin-left: 27.5%;
+    border: groove;
+    padding: 15px 32px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    float: inherit;
+}
+
+.control_button {
+    align-self: center;
+    background-color: #4CAF50; /* Green */
+    border: groove;
+    color: white;
+    padding: 15px 32px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    float: inherit;
+}
+
+/*
+#stop {
+    align-self: center;
+    background-color: #4CAF50;  
+    border: groove;
+    color: white;
+    padding: 15px 32px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    float: inherit;
+}
+
+
+#scan {
+    background-color: #4CAF50; 
+    border: groove;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    float: inherit;
+}
+*/
+
+#writing{
+    font-size: 20px;
+    color: white;
+}
+
+#update_location_b{
+    background-color: white; /* Green */
+    border: groove;
+    color: #4CAF50;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    float: inherit;
+}
+
+
+#current_location_panel{
+    width: 300px;
+    border: 2px solid white;
+    padding: 25px;
+    margin: 25px;
+    background-color: #4CAF50;
+    /*display: none;*/
+}
+
+#current_location_p{
+    font-size: 30px;
+    color: white;
+    font-style: italic;
+}
