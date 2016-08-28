@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wifi's</title>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script type="text/javascript" src="./wifi-controller.js"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+    <div id="all">
+        <header id="welcome">Welcome to the WIFI services</header>
+        <br><br><br><br><br>
+        <div id="scanner_panel">
+            <input id="scan" value="scan" type="button" class="control_button">
+            <input id="stop" value="stop" type="button" class="control_button">
+            <!-- status bar should be here. will show massages when scan is running and when it finished -->
+            <p> //TODO status bar for ongoing scans </p>
+            
+            <!-- scan display will be here. will the completed scan as text-->
+            
+            
+            
+            
+            <input id="location" value="enter your current location" autocomplete="on"/>
+            <input id="upload_b" value="uplaod" type="button" class="control_button">
+            <div id="upload_message"></div>
+        </div>
+        <br><br><br><br><br>
+        <div id="current_location_panel">
+            <p id="writing">I am currently in room:</p>
+            <p id="current_location_p"></p>
+            <br>
+            <input id="update_location_b" value="update" type="button">
+            <br>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+</body>
+</html>
