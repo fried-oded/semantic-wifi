@@ -1,0 +1,23 @@
+{
+  "name": "fp-location-service",
+  "version": "1.0.0",
+  "description": "online service to match WiFi fingerprint to room name from database",
+  "main": "fp-location-service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fried-oded/semantic-wifi.git"
+  },
+  "author": "Oded Fried",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fried-oded/semantic-wifi/issues"
+  },
+  "homepage": "https://github.com/fried-oded/semantic-wifi#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  }
+}
