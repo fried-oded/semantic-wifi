@@ -11,8 +11,7 @@ var http = require('http').Server(app);
 var FS_DB = require("./fs-db")
 var DB_NAME = 'home_db';
 var DB_FILE_NAME = DB_NAME + '.json';
-var DB_PATH = "databases/" + DB_FILE_NAME ;
-var dataBase = new FS_DB(DB_PATH);
+var dataBase = new FS_DB(DB_FILE_NAME);
 
 
 //============= static server =================//
@@ -24,6 +23,10 @@ app.use(bodyParser.json());
 
 //get room name from fingerprint
 app.post('/fingerprint', function(req, res){
+   //test
+   console.log("got finger print");
+   //----
+   
    var fingerPrint = req.body;//or something to get the request
    
    var roomName = getRoomName(fingerPrint);

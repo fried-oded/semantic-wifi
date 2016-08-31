@@ -1,21 +1,21 @@
 // data base from file
 
 var fs = require('fs');
-
+var DB_PATH = "databases/"
 
  //constructor
  function FS_DB(fileName){
+     this.filePath = DB_PATH + fileName;
       console.log("loading DB from file: " + fileName);
-      if (fs.existsSync(fileName)) {
-          this.dataBase = JSON.parse(fs.readFileSync(fileName, 'utf8'));
+      if (fs.existsSync(this.filePath)) {
+          this.dataBase = JSON.parse(fs.readFileSync(this.filePath, 'utf8'));
           console.log("loaded file: " + fileName + ". size: " + this.dataBase.size);
       }
       else {
           this.dataBase = createNewDB(fileName);
+          saveDBToFile(this);
           console.log("file '" + fileName + "' does not exist. created new empty database");
       } 
-      
-      this.fileName = fileName;
  } 
 
 function createNewDB(dbName){
@@ -24,28 +24,27 @@ function createNewDB(dbName){
      size : 0,
      name : dbName,
  }
- saveDBToFile(newDB, dbName);
  return newDB;
 }
 
 //add entry
 FS_DB.prototype.addEntry = function(roomName, entry){
     if(!this.dataBase.rooms[roomName]){
-        this.size++;
+        this.dataBase.size++;
          console.log("room " + roomName + " was added to the db");
     }
     else{
         console.log("room " + roomName + " was overwritten");
     }
     this.dataBase.rooms[roomName] = entry;
-    saveDBToFile(JSON.stringify(this, null, 4), this.fileName);
+    saveDBToFile(this);
 }
  
-function saveDBToFile(db, filename){
-    if(!filename){
-        filename = db.name + ".json";
+function saveDBToFile(db){
+    if(!db.filePath){
+        db.filePath = DB_PATH + db.dataBase.name;
     }
-    fs.writeFileSync(filename, db);
+    fs.writeFileSync(db.filePath, JSON.stringify(db.dataBase, db, 4));
 }
 
 //get rooms

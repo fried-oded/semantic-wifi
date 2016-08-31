@@ -49,6 +49,9 @@ io.on('connection', function(socket){
   socket.on('getCurrentRoom', function(){
         wifi_scanner.getCurrentRoom()
             .then(function(roomName){
+				//test
+				console.log("got room name " + roomName);
+				//----
                 socket.emit('currentRoomUpdate', roomName);
             })
             //test
