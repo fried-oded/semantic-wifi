@@ -1,0 +1,4 @@
+node_modules/
+
+# ignore data bases folder in cloud
+databases/

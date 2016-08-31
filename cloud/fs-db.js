@@ -24,6 +24,7 @@ function createNewDB(dbName){
      size : 0,
      name : dbName,
  }
+ saveDBToFile(newDB, dbName);
  return newDB;
 }
 
