@@ -8,10 +8,14 @@ var http = require('http').Server(app);
 
 //======== load DB ==========// 
 //using fs db
-var FS_DB = require("./fs-db")
+//var FS_DB = require("./fs-db");
+var ES_DB = require("./elasticsearch-db");
+
 var DB_NAME = 'home_db';
 var DB_FILE_NAME = DB_NAME + '.json';
-var dataBase = new FS_DB(DB_FILE_NAME);
+
+//var dataBase = new FS_DB(DB_FILE_NAME);
+var dataBase = new FS_DB(DB_NAME);
 
 
 //============= static server =================//
