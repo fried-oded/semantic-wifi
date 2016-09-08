@@ -1,16 +1,16 @@
 // data base from elastic search
 var ES_USER = "elasticuser";
 var ES_PASS = "1qaz2wsx#EDC$RFV";
-var ES_HOST = '10.0.0.5:9200';
-
+var ES_ADDR = '10.0.0.5:9200';
+var ES_HOST = ES_USER + ":" + ES_PASS + "@" + ES_HOST;
 console.log("importing: elasticsearch");
 
 var elasticsearch = require('elasticsearch');
 
-console.log("creating ES client");
+console.log("creating ES client with address " + ES_HOST);
 
 var client = new elasticsearch.Client({
-    host: ES_USER + ":" + ES_PASS + "@" + ES_HOST
+    host: ES_HOST
 });
 
 console.log("client created successfully");
