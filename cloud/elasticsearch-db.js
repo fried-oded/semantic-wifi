@@ -1,5 +1,5 @@
 // data base from elastic search
-var ES_USER = "es_admin";
+var ES_USER = "elasticuser";
 var ES_PASS = "1qaz2wsx#EDC$RFV";
 var ES_HOST = '10.0.0.5:9200';
 
