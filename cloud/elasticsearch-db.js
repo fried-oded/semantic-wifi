@@ -1,5 +1,5 @@
 // data base from elastic search
-var ES_HOST = 'localhost:9200';
+var ES_HOST = '10.0.0.5:9200';
 
 console.log("importing: elasticsearch");
 
