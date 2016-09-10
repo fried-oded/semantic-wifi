@@ -34,11 +34,14 @@ app.post('/fingerprint', function(req, res){
    var fingerPrint = req.body;//or something to get the request
    
    getRoomName(fingerPrint)
-   .then(function(bla){
-       console.log(bla);
-       res.send(bla);
+   .then(function(msg){
+       console.log(msg);
+       res.send();
    })
-   .catch(console.log);
+   .catch(function(err){
+       console.log(err);
+       res.status(500).send(err);
+   });
    
     //or something like this
 });
@@ -47,11 +50,15 @@ app.post('/fingerprint', function(req, res){
 app.post('/rooms/:roomName', function(req, res){
 	var entry = req.body;//or something to get the new db entry
    
-    dataBase.addEntry(req.params.roomName, entry);
-	
-	
-	//TODO maybe check if adding was successful? maybe send somthing more informative?
-	res.send(); //or something like this
+    dataBase.addEntry(req.params.roomName, entry)
+    .then(function(msg){
+       console.log(msg);
+       res.send();
+   })
+   .catch(function(err){
+       console.log(err);
+       res.status(500).send(err);
+   });
 });
 
 console.log("starting server");
