@@ -32,9 +32,13 @@ io.on('connection', function(socket){
   socket.on('startScan', function(timeToRun){
         wifi_scanner.startScan(timeToRun)
         .then(function(scanResult){
-            socket.emit('scanResult', scanResult);
+              socket.emit('scanSuccess', scanResult);
         })
-        .catch(console.log); //TODO tell the user
+        .catch(function(err){
+              console.log(err);
+              socket.emit('scanFailed', err);
+              
+        });
   });
   
   socket.on('stopScan', function(){
@@ -42,22 +46,30 @@ io.on('connection', function(socket){
   });
   
   socket.on('uploadFP', function(roomName, fingerPrint){
-        wifi_scanner.uploadFingerPrint(roomName, fingerPrint);
-        //TODO handle success/fail
+        wifi_scanner.uploadFingerPrint(roomName, fingerPrint)
+        .then(function(msg){
+              socket.emit('uploadSuccess', msg);
+        })
+        .catch(function(err){
+              console.log(err);
+              socket.emit('uploadFailed', err);
+              
+        });
   });
   
   socket.on('getCurrentRoom', function(){
         wifi_scanner.getCurrentRoom()
             .then(function(roomName){
-				//test
-				console.log("got room name " + roomName);
-				//----
-                socket.emit('currentRoomUpdate', roomName);
+                //test
+                console.log("got room name " + roomName);
+                //----
+                socket.emit('updateSuccess', roomName);
             })
             //test
             .catch(function(err){
-              console.log("could not get name");  
-              console.log(err);  
+                console.log("could not get name");  
+                console.log(err);  
+                socket.emit('updateFailed', err);
             })
             //----
             ;
