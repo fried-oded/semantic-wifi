@@ -14,45 +14,65 @@ $(function(){
    
    //====== scan panel ======//
    var currentScanResult = null;
+   var scanStatus = $('#scan_status');
+   var uploadMessage = $('#upload_message');
    
    scan.on("click", function(){
            socket.emit("startScan");
-           //TODO write "scanning..." in status bar.
+           scanStatus.text("scanning...");
    });
    
-   socket.on('scanResult', function(scanResult){
-        //test
+   socket.on('scanSuccess', function(scanResult){
         console.log("scan completed:");
         console.log(scanResult);
         currentScanResult = scanResult;
-        //TODO write "scan complete (n networks)" in status bar
-        
-        //TODO show results in result as text in some panel
+        scanStatus.text("scan complete. found " + Object.keys(scanResult).length + " networks");
+        uploadMessage.text("");
+   });
+   
+   socket.on('scanFailed', function(err){
+        console.log("scan failed:");
+        console.log(err);
+        currentScanResult = null;
+        scanStatus.text("scan failed. click scan to try again");
    });
    
    $('#stop').on('click', function(){
        socket.emit('stopScan');
    });
    
-   
+   //====== upload panel ======//
    $('#upload_b').on('click', function(){
        console.log(location.val());
        //check room name is valid
        if (location.val() === ""){
-           $('#upload_message').empty().append($('<p>').text("please enter a room name"));
+           scanStatus.text("please enter a room name");
        }
        //check there is a fingerprint to send
        else if(currentScanResult == null){
-            $('#upload_message').empty().append($('<p>').text("please scan to room first"));
+             scanStatus.text("please scan to room first");
        }
        else {
            //send fingerprint to server
            socket.emit('uploadFP', location.val(), currentScanResult);
-
-           //update current location to the given name
-           $('#current_location_p').text(location.val());
-           location.val("");           
+          
        }
+   });
+   
+   socket.on('uploadSuccess', function(msg){
+        console.log("upload success:");
+        console.log(msg);
+        scanStatus.text("upload complete");
+        
+        //update current location to the given name
+        $('#current_location_p').text(location.val());
+        location.val(""); 
+   });
+   
+   socket.on('uploadFailed', function(err){
+        console.log("upload failed:");
+        console.log(err);
+        scanStatus.text("upload failed");
    });
    
    
@@ -62,9 +82,14 @@ $(function(){
     });
     
 
-    socket.on("currentRoomUpdate", function(roomName){
-        console.log("ddd");
+    socket.on("updateSuccess", function(roomName){
+        console.log("got room:");
         console.log(roomName);
         $('#current_location_p').text(roomName);
+    });
+    
+    socket.on("updateFailed", function(err){
+        console.log("update failed");
+        console.log(err);
     });
 });
