@@ -22,11 +22,11 @@ $(function(){
            scanStatus.text("scanning...");
    });
    
-   socket.on('scanSuccsess', function(scanResult){
+   socket.on('scanSuccess', function(scanResult){
         console.log("scan completed:");
         console.log(scanResult);
         currentScanResult = scanResult;
-        scanStatus.text("scan complete. found " + scanResult.networks.length + " networks");
+        scanStatus.text("scan complete. found " + Object.keys(scanResult).length + " networks");
         uploadMessage.text("");
    });
    
@@ -59,10 +59,10 @@ $(function(){
        }
    });
    
-   socket.on('uploadSuccsess', function(msg){
+   socket.on('uploadSuccess', function(msg){
         console.log("upload success:");
         console.log(msg);
-        scanStatus.text("ppload complete");
+        scanStatus.text("upload complete");
         
         //update current location to the given name
         $('#current_location_p').text(location.val());

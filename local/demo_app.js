@@ -32,9 +32,15 @@ io.on('connection', function(socket){
   socket.on('startScan', function(timeToRun){
         wifi_scanner.startScan(timeToRun)
         .then(function(scanResult){
+              //test
+              console.log("scan succsess");
+              //----
               socket.emit('scanSuccess', scanResult);
         })
         .catch(function(err){
+              //test
+              console.log("scan failed!");
+              //----
               console.log(err);
               socket.emit('scanFailed', err);
               
@@ -48,6 +54,10 @@ io.on('connection', function(socket){
   socket.on('uploadFP', function(roomName, fingerPrint){
         wifi_scanner.uploadFingerPrint(roomName, fingerPrint)
         .then(function(msg){
+              //test
+              console.log(msg);
+              console.log("upload success");
+              //----
               socket.emit('uploadSuccess', msg);
         })
         .catch(function(err){

@@ -36,7 +36,7 @@ app.post('/fingerprint', function(req, res){
    getRoomName(fingerPrint)
    .then(function(msg){
        console.log(msg);
-       res.send();
+       res.send(msg);
    })
    .catch(function(err){
        console.log(err);
@@ -52,6 +52,9 @@ app.post('/rooms/:roomName', function(req, res){
    
     dataBase.addEntry(req.params.roomName, entry)
     .then(function(msg){
+       //tests
+       console.log("entry was added");
+       //----
        console.log(msg);
        res.send();
    })
