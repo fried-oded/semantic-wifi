@@ -1,6 +1,8 @@
 // data base from file
 
 var fs = require('fs');
+var Promise = require("bluebird");
+Promise.promisifyAll(fs);
 var DB_PATH = "databases/"
 
  //constructor
@@ -37,20 +39,20 @@ FS_DB.prototype.addEntry = function(roomName, entry){
         console.log("room " + roomName + " was overwritten");
     }
     this.dataBase.rooms[roomName] = entry;
-    saveDBToFile(this);
+    return saveDBToFileAsync(this);
 }
  
-function saveDBToFile(db){
+function saveDBToFileAsync(db){
     if(!db.filePath){
         db.filePath = DB_PATH + db.dataBase.name;
     }
-    fs.writeFileSync(db.filePath, JSON.stringify(db.dataBase, db, 4));
+    return fs.writeFileAsync(db.filePath, JSON.stringify(db.dataBase, db, 4));
 }
 
 //get rooms
 FS_DB.prototype.getRoomsFromFp = function(fingerPrint){
     //not really optimizing here...
-    return this.dataBase.rooms;
+    return Promise.resolve(this.dataBase.rooms);
 }
 
 

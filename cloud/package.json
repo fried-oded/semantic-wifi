@@ -18,6 +18,8 @@
   "homepage": "https://github.com/fried-oded/semantic-wifi#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "express": "^4.14.0"
+    "elasticsearch": "^11.0.1",
+    "express": "^4.14.0",
+    "bluebird": "~3.4.6"
   }
 }

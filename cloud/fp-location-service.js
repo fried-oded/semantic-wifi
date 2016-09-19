@@ -1,17 +1,21 @@
 
 //======== REST api ==========// 
-console.log("express");
+console.log("importing: express");
 var app = require("express")();
-console.log("http");
+console.log("importing: http");
 var http = require('http').Server(app);
 
 
 //======== load DB ==========// 
 //using fs db
-var FS_DB = require("./fs-db")
+//var FS_DB = require("./fs-db");
+var ES_DB = require("./elasticsearch-db");
+
 var DB_NAME = 'home_db';
 var DB_FILE_NAME = DB_NAME + '.json';
-var dataBase = new FS_DB(DB_FILE_NAME);
+
+//var dataBase = new FS_DB(DB_FILE_NAME);
+var dataBase = new ES_DB(DB_NAME);
 
 
 //============= static server =================//
@@ -29,20 +33,35 @@ app.post('/fingerprint', function(req, res){
    
    var fingerPrint = req.body;//or something to get the request
    
-   var roomName = getRoomName(fingerPrint);
+   getRoomName(fingerPrint)
+   .then(function(msg){
+       console.log(msg);
+       res.send(msg);
+   })
+   .catch(function(err){
+       console.log(err);
+       res.status(500).send(err);
+   });
    
-   res.send(roomName); //or something like this
+    //or something like this
 });
 
 //add new room to the DB
 app.post('/rooms/:roomName', function(req, res){
 	var entry = req.body;//or something to get the new db entry
    
-    dataBase.addEntry(req.params.roomName, entry);
-	
-	
-	//TODO maybe check if adding was successful? maybe send somthing more informative?
-	res.send() //or something like this
+    dataBase.addEntry(req.params.roomName, entry)
+    .then(function(msg){
+       //tests
+       console.log("entry was added");
+       //----
+       console.log(msg);
+       res.send();
+   })
+   .catch(function(err){
+       console.log(err);
+       res.status(500).send(err);
+   });
 });
 
 console.log("starting server");
@@ -56,26 +75,33 @@ http.listen(PORT, function(){
 function getRoomName(fingerPrint) {
     var bestScore = Number.MAX_VALUE;
     var bestRoom = null;
-    var rooms = dataBase.getRoomsFromFp(fingerPrint);
-    for (var roomName in rooms) {
-        if (rooms.hasOwnProperty(roomName)) {
-            //test
-            console.log("calculating room: " + roomName);
-            //----
-            
-            var currentScore = getFingerPrintScore(rooms[roomName], fingerPrint);
-            if(currentScore < bestScore){
-                bestScore = currentScore;
-                bestRoom = roomName;
+    var promise = dataBase.getRoomsFromFp(fingerPrint)
+    .then(function(rooms){
+        for (var roomName in rooms) {
+            if (rooms.hasOwnProperty(roomName)) {
+                //test
+                console.log("calculating room: " + roomName);
+                //----
+                
+                var currentScore = getFingerPrintScore(rooms[roomName], fingerPrint);
+                if(currentScore < bestScore){
+                    bestScore = currentScore;
+                    bestRoom = roomName;
+                }
+                
+                //test
+                console.log("room: " + roomName + ", score: " + currentScore);
+                //----
             }
-            
-            //test
-            console.log("room: " + roomName + ", score: " + currentScore);
-            //----
         }
-    }
+        
+        //test
+        console.log("best room is " + bestRoom + " score: " + bestScore);
+        //----
+        return bestRoom;
+    });
     
-    return bestRoom;
+    return promise;
 }
 
 function getFingerPrintScore(room, fingerPrint) {
