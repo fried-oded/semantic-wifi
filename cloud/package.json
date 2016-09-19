@@ -11,6 +11,7 @@
     "url": "git+https://github.com/fried-oded/semantic-wifi.git"
   },
   "author": "Oded Fried",
+  "contributors": ["Gil Korenreich"],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/fried-oded/semantic-wifi/issues"
