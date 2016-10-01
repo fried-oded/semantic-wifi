@@ -151,11 +151,7 @@ var UPLOAD_URI = SERVER_URI + 'rooms/'
 var GET_NAME_URI = SERVER_URI + 'fingerprint/';
 
 function uploadFingerPrint(roomName, DBEntry){
-        //test
-        console.log("sending room: " + roomName);
-        console.log(DBEntry);
-        //----
-        
+	
         var uploadOptions = {
             method: 'POST',
             uri: UPLOAD_URI + roomName,
@@ -187,10 +183,6 @@ function getRoomName(wifiScan){
             body: wifiScan.networks,
             json: true,
         };
-		
-		//test
-		console.log("sending finger print...");
-		//----
         
         return rp(getNameOptions);
 }
