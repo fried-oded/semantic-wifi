@@ -10,7 +10,6 @@ var wifi_scanner = require("./wifi-location");
 //============= static server =================//
 var DEMO_PORT = 3000;
 
-//TODO make it return all files in www instead of listing them one by one (like you supposed to do)
 app.get('/', function(req, res){
    res.sendFile(__dirname + '/www/demo_gui.html');
 });
@@ -32,15 +31,11 @@ io.on('connection', function(socket){
   socket.on('startScan', function(timeToRun){
         wifi_scanner.startScan(timeToRun)
         .then(function(scanResult){
-              //test
               console.log("scan succsess");
-              //----
               socket.emit('scanSuccess', scanResult);
         })
         .catch(function(err){
-              //test
               console.log("scan failed!");
-              //----
               console.log(err);
               socket.emit('scanFailed', err);
               

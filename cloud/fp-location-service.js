@@ -31,7 +31,7 @@ app.post('/fingerprint', function(req, res){
    console.log("got finger print");
    //----
    
-   var fingerPrint = req.body;//or something to get the request
+   var fingerPrint = req.body;
    
    getRoomName(fingerPrint)
    .then(function(msg){

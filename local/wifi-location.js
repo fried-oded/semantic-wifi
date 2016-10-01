@@ -166,12 +166,12 @@ function getCurrentRoom(){
     return WiFiControl.scanForWiFiAsync()
         .then(getRoomName)
         //test - delete this. this thing fakes a finger print because I don't have a wifi adapter on my pc
-        .catch(function(err){
-			console.log("ERROR: could not scan networks");
-			console.log(err);
-            console.log('faking fp instead!!!!!!!!!');
-            return getRoomName(FAKE_SCAN);
-        })
+        // .catch(function(err){
+		// 	console.log("ERROR: could not scan networks");
+		// 	console.log(err);
+        //     console.log('faking fp instead!!!!!!!!!');
+        //     return getRoomName(FAKE_SCAN);
+        // })
         //----
         ;
 }
