@@ -95,6 +95,7 @@ ES_DB.prototype.getRoomsFromFp = function(fingerPrint){
         index: this.indexName,
         type : "name-mac-pair",
         body : {
+            "from" : 0, "size" : 10000,
             "query": {
                 "constant_score" : {
                     "filter" : {
@@ -119,7 +120,9 @@ ES_DB.prototype.getRoomsFromFp = function(fingerPrint){
                 'signal_level' : macRoomPair._source.signal_level,
                 'channel' : macRoomPair._source.channel,
             };
-            rooms[name] = {};
+            if(!rooms[name]){
+                rooms[name] = {};
+            }
             rooms[name][mac] = newEntry;
         });
         

@@ -15,7 +15,7 @@ var DB_PATH = "databases/"
       }
       else {
           this.dataBase = createNewDB(fileName);
-          saveDBToFile(this);
+          saveDBToFileAsync(this);
           console.log("file '" + fileName + "' does not exist. created new empty database");
       } 
  } 
